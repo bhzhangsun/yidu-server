@@ -4,39 +4,32 @@ import (
 	"fmt"
 
 	"github.com/kataras/iris/v12"
-	"mobi.4se.tech/controller"
-	_ "mobi.4se.tech/service"
+	"github.com/kataras/iris/v12/mvc"
+	"mobi.4se.tech/utils"
+	"mobi.4se.tech/web/routes"
 )
 
 func main() {
 	app := iris.New()
-	tmpl := iris.HTML("./views", ".html")
+	tmpl := iris.HTML("./web/views", ".html")
+
+	conf, err := utils.GetConfiguration("./config/config.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	db, err := utils.GetDB((*conf).DB)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	db.Ping()
 
 	tmpl.Reload(true)
 	app.RegisterView(tmpl)
 
-	api := app.Party("/api", handlerAPI)
-	{
-		user := api.Party("/user", handlerUser)
-		user.Get("/info", controller.GetUserInfo)
-		user.Get("/article", controller.GetArticle)
-	}
+	//routes
+	mvc.Configure(app.Party("/"), routes.RootRouteHandler)
 
-	app.Get("/article", func(ctx iris.Context) {
-		path := ctx.Path()
-		app.Logger().Info(path)
-		ctx.WriteString(path)
-
-	})
 	app.Run(iris.Addr("localhost:8000"))
-}
-
-func handlerAPI(ctx iris.Context) {
-	fmt.Println("handlerAPI")
-	ctx.Next()
-}
-
-func handlerUser(ctx iris.Context) {
-	fmt.Println("handlerUser")
-	ctx.Next()
 }
