@@ -1,13 +1,10 @@
 package controllers
 
 import (
-	"encoding/json"
 	"errors"
-	"fmt"
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"mobi.4se.tech/utils"
 )
 
 func GetUserInfo(ctx iris.Context) {
@@ -39,9 +36,14 @@ var helloView = mvc.View{
 // you can even create custom response dispatchers by
 // implementing the `github.com/kataras/iris/hero#Result` interface.
 func (c *UserController) Get() mvc.Result {
-	seession := utils.DB.ID("1234")
-	fmt.Println(json.Marshal(seession))
-	return helloView
+
+	return mvc.View{
+		Name: "user.html",
+		Data: map[string]interface{}{
+			"Title":     "Hellp what",
+			"MyMessage": "Welcome to my awesome website",
+		},
+	}
 }
 
 // you can define a standard error in order to re-use anywhere in your app.

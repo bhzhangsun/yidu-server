@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"mobi.4se.tech/web/controllers"
+	"mobi.4se.tech/controllers"
 )
 
 // var rootRouter router.Party

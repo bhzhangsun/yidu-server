@@ -1,4 +1,4 @@
-package model
+package models
 
 type Articles struct {
 	Id        int    `xorm:"not null pk autoincr comment('文章id') INT(10)"`

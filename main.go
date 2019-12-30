@@ -5,13 +5,13 @@ import (
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
+	"mobi.4se.tech/routes"
 	"mobi.4se.tech/utils"
-	"mobi.4se.tech/web/routes"
 )
 
 func main() {
 	app := iris.New()
-	tmpl := iris.HTML("./web/views", ".html")
+	tmpl := iris.HTML("./views", ".html")
 
 	conf, err := utils.GetConfiguration("./config/config.json")
 	if err != nil {
