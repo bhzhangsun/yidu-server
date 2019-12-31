@@ -32,5 +32,5 @@ require (
 	github.com/yudai/gojsondiff v1.0.0 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect
-	xorm.io/core v0.7.2 // indirect
+	xorm.io/xorm v0.8.1
 )

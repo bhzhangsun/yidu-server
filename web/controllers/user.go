@@ -5,6 +5,8 @@ import (
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
+	"mobi.4se.tech/models"
+	"mobi.4se.tech/services"
 )
 
 func GetUserInfo(ctx iris.Context) {
@@ -37,10 +39,15 @@ var helloView = mvc.View{
 // implementing the `github.com/kataras/iris/hero#Result` interface.
 func (c *UserController) Get() mvc.Result {
 
+	ok := services.NewUserService().Register(&models.User{
+		UserId: "haha",
+		Name:   "baohong",
+	})
+
 	return mvc.View{
 		Name: "user.html",
 		Data: map[string]interface{}{
-			"Title":     "Hellp what",
+			"Title":     ok,
 			"MyMessage": "Welcome to my awesome website",
 		},
 	}
