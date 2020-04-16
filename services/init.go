@@ -2,9 +2,10 @@ package services
 
 import (
 	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
-	"mobi.4se.tech/config"
 	"xorm.io/xorm"
+	"yidu.4se.tech/config"
 )
 
 var db *xorm.Engine = nil

@@ -2,5 +2,5 @@ package config
 
 var (
 	ENV   string = "dev"
-	MYSQL string = "mobi:ANnZtwkRsMn3mNJJ@tcp(106.52.48.73:3306)/mobi?charset=utf8"
+	MYSQL string = "yidu:ANnZtwkRsMn3mNJJ@tcp(127.0.0.1:3306)/db_yidu?charset=utf8"
 )

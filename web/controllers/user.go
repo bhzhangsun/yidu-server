@@ -5,12 +5,12 @@ import (
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"mobi.4se.tech/models"
-	"mobi.4se.tech/services"
+	"yidu.4se.tech/models"
+	"yidu.4se.tech/services"
 )
 
 func GetUserInfo(ctx iris.Context) {
-	ctx.ViewData("UserInfo", "mobi")
+	ctx.ViewData("UserInfo", "yidu")
 	ctx.View("user.html")
 }
 

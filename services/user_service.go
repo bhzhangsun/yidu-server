@@ -1,7 +1,7 @@
 package services
 
 import (
-	"mobi.4se.tech/models"
+	"yidu.4se.tech/models"
 )
 
 type UserService struct {
