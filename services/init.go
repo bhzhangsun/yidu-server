@@ -8,7 +8,7 @@ import (
 	"yidu.4se.tech/config"
 )
 
-var db *xorm.Engine = nil
+var DB *xorm.Engine = nil
 
 func init() {
 	//配置DB
@@ -21,5 +21,5 @@ func init() {
 	if err != nil {
 		fmt.Println("Ping:", err)
 	}
-	db = base
+	DB = base
 }

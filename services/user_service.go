@@ -15,13 +15,13 @@ func NewUserService() *UserService {
 
 func (this *UserService) GetUserRepoById(id string) bool {
 	this.UserId = id
-	ok, _ := db.Get(&this.User)
+	ok, _ := DB.Get(&this.User)
 	return ok
 }
 
 func (this *UserService) Register(user *models.User) bool {
 
-	count, _ := db.InsertOne(*user)
+	count, _ := DB.InsertOne(*user)
 	this.User = *user
 	return count > 0
 }

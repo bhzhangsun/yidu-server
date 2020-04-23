@@ -3,14 +3,29 @@ package core
 import "regexp"
 
 type Collector interface {
-	Structure(uri string)
+	Resolve(url string)
 	Store()
 }
 
 type Classifier struct {
-	model map[*regexp.Regexp] Collector
+	model map[*regexp.Regexp]Collector
 }
 
-func RegisterClassfier(regx *regexp.Regexp, c Collector) {
+var classifier Classifier = Classifier{model: make(map[*regexp.Regexp]Collector, 10)}
 
+func GetClassifier() *Classifier {
+	return &classifier
+}
+
+func (this *Classifier) RegisterClassfier(regx *regexp.Regexp, c Collector) {
+	this.model[regx] = c
+}
+
+func (this *Classifier) GetCollector(url string) Collector {
+	for k, v := range this.model {
+		if k.MatchString(url) {
+			return v
+		}
+	}
+	return nil
 }
