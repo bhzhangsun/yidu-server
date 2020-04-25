@@ -12,8 +12,7 @@ func main() {
 
 	novels := mfxsyd.NewNovels()
 	novels.RegisterToClassifier()
-	novels.Resolve("http://www.mianfeixiaoshuoyueduwang.com/book/1")
-	novels.Store()
+	novels.Reducer("http://www.mianfeixiaoshuoyueduwang.com/book/1")
 
 	//routes
 	mvc.Configure(app.Party("/"), routes.RootRouteHandler)

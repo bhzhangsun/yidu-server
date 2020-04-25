@@ -8,20 +8,20 @@ services:
   #   link: db
   #   ports:
   #     - 8080:8080
-  # db:
-  #   image: mysql
-  #   command: 
-  #     - --default-authentication-plugin=mysql_native_password
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: MYSQL@root
-  #     MYSQL_DATABASE: db_yidu
-  #     MYSQL_USER: yidu
-  #     MYSQL_PASSWORD: ANnZtwkRsMn3mNJJ
-  #   volumes:
-  #     - ./data:/var/lib/mysql
-  #     # - ./sql:/docker-entrypoint-initdb.d
-  #   ports:
-  #     - 3306:3306
+  db:
+    image: mysql
+    command: 
+      - --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQL@root
+      MYSQL_DATABASE: db_yidu
+      MYSQL_USER: yidu
+      MYSQL_PASSWORD: ANnZtwkRsMn3mNJJ
+    volumes:
+      - ./data:/var/lib/mysql
+      # - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
 
   redis:
     image: redis:rc-alpine

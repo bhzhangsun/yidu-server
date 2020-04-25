@@ -3,8 +3,7 @@ package core
 import "regexp"
 
 type Collector interface {
-	Resolve(url string)
-	Store()
+	Reducer(url string)
 }
 
 type Classifier struct {
