@@ -4,8 +4,11 @@ import (
 	"crypto/md5"
 	"fmt"
 	"log"
+	"net"
+	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/gocolly/colly"
 	"yidu.4se.tech/models"
@@ -20,9 +23,22 @@ type Novels struct {
 const PATTERN string = `^http://www.mianfeixiaoshuoyueduwang.com/book/.+`
 
 func NewNovels() Novels {
+	crawler := colly.NewCollector()
+	crawler.WithTransport(&http.Transport{
+		Proxy: core.GetProxy,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+			DualStack: true,
+		}).DialContext,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+	})
 	return Novels{
 		//在此设置收集器配置
-		crawler: colly.NewCollector(),
+		crawler: crawler,
 	}
 }
 
@@ -89,7 +105,7 @@ func (this *Novels) Reducer(url string) {
 		func(elem *colly.HTMLElement) {
 			row := models.Chapter{
 				Name:    elem.ChildText("span"),
-				Sources: []string{elem.Attr("href")},
+				Sources: map[string]string{data.Sources[0]: elem.Attr("href")},
 			}
 			menu = append(menu, row)
 		},
@@ -101,21 +117,47 @@ func (this *Novels) Reducer(url string) {
 
 		for i, _ := range menu {
 			key := md5.Sum([]byte(strings.Join([]string{data.Name, menu[i].Name, string(i)}, "")))
+			menu[i].Sequence = i
 			menu[i].ID = fmt.Sprintf("%x", key)[:16]
 			menu[i].Novel = data.ID
 		}
 
-		if _, err := services.DB.InsertOne(&data); err != nil {
-			log.Println("insert novel error")
-		}
-		if _, err := services.DB.Insert(&menu); err != nil {
-			log.Println("insert menu error")
-		}
-		result := models.Novel{ID: data.ID}
-		if _, err := services.DB.Get(&result); err != nil {
-			log.Println("get error")
+		// 更新小说数据
+		nov := data
+		if res, err := services.DB.Get(&nov); !res {
+			if err == nil {
+				services.DB.InsertOne(&data)
+			}
+		} else {
+			i := 0
+			for ; i < len(nov.Sources); i++ {
+				if nov.Sources[i] == data.Sources[0] { // 当前网站在不在之前的源站列表里
+					break // 在不做处理
+				}
+			}
+			if i >= len(nov.Sources) { // 不在，只更新source字段
+				nov.Sources = append(data.Sources, nov.Sources...)
+				services.DB.Update(&nov, &models.Novel{
+					ID: data.ID,
+				})
+			}
 		}
 
+		// 更新章节数据
+		catelog := []models.Chapter{}                                                                                        // 数据库数据
+		if res, err := services.DB.Where("novel_id = ?", data.ID).OrderBy("sequence asc").FindAndCount(&catelog); res <= 0 { //出错或数据库无数据
+			if err == nil {
+				services.DB.Insert(&menu)
+			}
+		} else {
+			for i := range catelog { // catelog已有数据更新
+				if i < len(menu) {
+					catelog[i].Sources[data.Sources[0]] = menu[i].Sources[data.Sources[0]]
+				}
+			}
+			services.DB.Update(&catelog)
+			services.DB.Insert(menu[len(catelog):])
+		}
 	})
 
 	this.crawler.Visit(url)

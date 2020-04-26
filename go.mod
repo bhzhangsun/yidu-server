@@ -27,6 +27,7 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/klauspost/compress v1.9.3 // indirect
 	github.com/lib/pq v1.1.1 // indirect
+	github.com/lunny/log v0.0.0-20160921050905-7887c61bf0de
 	github.com/mattn/go-colorable v0.1.4 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
