@@ -52,6 +52,13 @@ func (this *Novels) RegisterToClassifier() {
 func (this *Novels) Reducer(url string) {
 	var data models.Novel
 	var menu []models.Chapter = make([]models.Chapter, 0)
+	this.crawler.OnRequest(func(req *colly.Request) {
+		log.Println("onrequest!")
+	})
+
+	this.crawler.OnError(func(resp *colly.Response, err error) {
+		log.Println(err)
+	})
 	this.crawler.OnResponse(func(resp *colly.Response) {
 		data.Sources = []string{resp.Request.URL.String()}
 		log.Println(resp.Request.URL.String())
