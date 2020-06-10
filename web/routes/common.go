@@ -5,14 +5,12 @@ import (
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"yidu.4se.tech/web/controllers"
+	"yidu.4se.cool/web/controllers"
 )
 
-// var rootRouter router.Party
-
 func RootRouteHandler(app *mvc.Application) {
-	rootRouter := app.Router
-	mvc.Configure(rootRouter.Party("/api"), APIHandler)
+	router := app.Router
+	mvc.Configure(router.Party("/api"), APIHandler)
 }
 
 func APIHandler(app *mvc.Application) {

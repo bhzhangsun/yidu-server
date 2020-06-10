@@ -1,9 +1,9 @@
 package models
 
 type Track struct {
-	ID      string `track_id`
-	Novel   string `novel_id`
-	User    string `user_id`
-	Current string `current 当前所在章节序号`
-	Favor   bool   `favor 是否收藏`
+	ID      string `xorm: 'track_id'`
+	Novel   string `xorm: 'novel_id'`
+	User    string `xorm: 'user_id'`
+	Current string `xorm: 'current' comment('当前所在章节序号')`
+	Favor   bool   `xorm: 'favor' comment('是否收藏')`
 }

@@ -11,9 +11,9 @@ import (
 	"time"
 
 	"github.com/gocolly/colly"
-	"yidu.4se.tech/models"
-	"yidu.4se.tech/services"
-	"yidu.4se.tech/services/core"
+	"yidu.4se.cool/models"
+	"yidu.4se.cool/services"
+	"yidu.4se.cool/services/core"
 )
 
 type Novels struct {

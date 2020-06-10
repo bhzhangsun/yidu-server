@@ -6,8 +6,8 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"xorm.io/xorm"
-	"yidu.4se.tech/config"
-	"yidu.4se.tech/models"
+	"yidu.4se.cool/config"
+	"yidu.4se.cool/models"
 )
 
 var DB *xorm.Engine = nil
