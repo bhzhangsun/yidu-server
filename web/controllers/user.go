@@ -5,11 +5,41 @@ import (
 
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
+	"github.com/kataras/iris/v12/sessions"
+	"yidu.4se.cool/web/utils"
 )
 
+func Login(ctx iris.Context) {
+	type Param struct {
+		Phone string `json: "phone"`
+		Code  string `json: "code"`
+	}
+	var param Param
+	if ctx.ReadJSON(&param) != nil {
+		ctx.JSON(&utils.Response{
+			Code:    utils.RESPCODE_ERROR_PARAM,
+			Data:    nil,
+			Message: utils.RESPMSG_ERROR_PARAM,
+		})
+	} else {
+		sess := sessions.Get(ctx)
+
+		sess.Set("user", "")
+		ctx.WriteString("dfdfrr")
+	}
+}
+
 func GetUserInfo(ctx iris.Context) {
-	ctx.ViewData("UserInfo", "yidu")
-	ctx.View("user.html")
+	sess := sessions.Get(ctx)
+
+	ctx.JSON(iris.Map{
+		"user": sess.Get("key"),
+	})
+}
+
+func Logout(ctx iris.Context) {
+	sess := sessions.Get(ctx)
+	sess.Destroy()
 }
 
 func GetArticle(ctx iris.Context) {

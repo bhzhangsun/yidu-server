@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	ID       string `xorm: 'user_id' pk VARCHAR(16)`
-	Phone    string `xorm: 'phone' not null index VARCHAR(13)`
-	Nickname string `xorm: 'nickname' VARCHAR(32)`
+	ID       uint32 `xorm: "'user_id' pk autoincr INT"`
+	Phone    string `xorm: "'phone' index not null unique VARCHAR(13)"`
+	Nickname string `xorm: "'nickname' VARCHAR(32)"`
 }
