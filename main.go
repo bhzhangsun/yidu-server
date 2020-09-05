@@ -11,7 +11,7 @@ func main() {
 	novels := mfxsyd.NewNovels()
 	novels.RegisterToClassifier()
 	for i := 0; i < 2000; i++ {
-		novels.Reducer(fmt.Sprintln("http://www.mianfeixiaoshuoyueduwang.com/book/%d", i))
+		novels.Reducer(fmt.Sprintf("http://www.mianfeixiaoshuoyueduwang.com/book/%d", i))
 	}
 	web.Run()
 }
