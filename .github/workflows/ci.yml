@@ -36,10 +36,10 @@ jobs:
     - name: Test
       run: go test -v .
 
-    - name: Upload yidu-server artifact
+    - name: Upload yidu-server
       uses: actions/upload-artifact@v2
       with: 
-        name: go execute file
+        name: push execute file
         path: yidu-server
 
 
@@ -49,10 +49,11 @@ jobs:
     name: Deploy
     runs-on: [self-hosts, Linux, X64]
     steps:
-      - name: Deploy yidu-server artifact
+      - name: Download yidu-server
         uses: actions/download-artifact@v2
         with:
-          name: go execute file
+          name: pull go execute file
           path: yidu-server
+      - name: Deploy
         run: yidu-server
 
