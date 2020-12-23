@@ -47,7 +47,7 @@ jobs:
 # 测试服下拉镜像，部署
   deploy:
     name: Deploy
-    runs-on: [self-hosts, Linux, X64]
+    runs-on: [self-hosts]
     steps:
       - name: Download yidu-server
         uses: actions/download-artifact@v2
