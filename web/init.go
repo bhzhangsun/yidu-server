@@ -19,7 +19,7 @@ var session = sessions.New(sessions.Config{
 })
 
 func Run() {
-	app.Run(iris.Addr(":8000"), iris.WithOptimizations)
+	app.Run(iris.Addr(":8080"), iris.WithOptimizations)
 }
 
 func init() {

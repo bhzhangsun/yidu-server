@@ -10,8 +10,8 @@ import (
 func main() {
 	novels := mfxsyd.NewNovels()
 	novels.RegisterToClassifier()
-	for i := 0; i < 2000; i++ {
-		novels.Reducer(fmt.Sprintf("http://www.mianfeixiaoshuoyueduwang.com/book/%d", i))
-	}
+	// for i := 0; i < 00; i++ {
+	novels.Reducer(fmt.Sprintf("http://www.mianfeixiaoshuoyueduwang.com/book/%d", 1))
+	// }
 	web.Run()
 }

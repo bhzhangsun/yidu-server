@@ -18,6 +18,5 @@ func GetRouter(app *mvc.Application) {
 		p.Get("/info", controllers.GetUserInfo)
 		// p.Put("/info", controllers.ChangeInfo)
 		p.Get("/logout", controllers.Logout)
-
 	})
 }

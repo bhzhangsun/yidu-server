@@ -31,7 +31,28 @@ jobs:
         fi
 
     - name: Build
-      run: go build -v .
+      run: go build -v -o yidu-server ./main.go
 
     - name: Test
       run: go test -v .
+
+    - name: Upload yidu-server artifact
+      uses: actions/upload-artifact@v2
+      with: 
+        name: go execute file
+        path: yidu-server
+
+
+# 构建镜像
+# 测试服下拉镜像，部署
+  deploy:
+    name: Deploy
+    runs-on: [self-hosts, Linux, X64]
+    steps:
+      - name: Deploy yidu-server artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: go execute file
+          path: yidu-server
+        run: yidu-server
+
