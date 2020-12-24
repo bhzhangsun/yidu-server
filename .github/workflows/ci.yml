@@ -42,7 +42,6 @@ jobs:
         name: yidu-server-artifact
         path: yidu-server
 
-
 # 构建镜像
 # 测试服下拉镜像，部署
   deploy:
