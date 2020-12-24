@@ -48,6 +48,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: [self-hosted]
+    needs: build
     steps:
       - name: Start
         run: echo 'Deploy Start'
