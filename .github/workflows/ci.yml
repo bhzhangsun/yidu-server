@@ -47,7 +47,7 @@ jobs:
 # 测试服下拉镜像，部署
   deploy:
     name: Deploy
-    runs-on: [self-hosted macOS]
+    runs-on: [self-hosted, macOS]
     needs: build
     steps:
       - name: Start
