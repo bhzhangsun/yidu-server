@@ -39,7 +39,7 @@ jobs:
     - name: Upload yidu-server
       uses: actions/upload-artifact@v2
       with: 
-        name: yidu execute file
+        name: yidu-server-artifact
         path: yidu-server
 
 
@@ -54,7 +54,7 @@ jobs:
       - name: Download yidu-server
         uses: actions/download-artifact@v2
         with:
-          name: yidu execute file
+          name: yidu-server-artifact
           path: yidu-server
       - name: Deploy
         run: yidu-server
